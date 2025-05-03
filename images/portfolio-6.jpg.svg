@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a2a40;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#grad1)" />
+  
+  <!-- Brand Identity Elements -->
+  <circle cx="400" cy="200" r="80" fill="#ff4d94" opacity="0.5" />
+  <rect x="320" y="200" width="160" height="160" fill="#6e42ff" opacity="0.5" />
+  <polygon points="400,120 480,280 320,280" fill="#00f7c3" opacity="0.5" />
+  
+  <!-- Brand Guidelines -->
+  <rect x="200" y="400" width="400" height="20" rx="3" fill="#ffffff" opacity="0.1" />
+  <rect x="200" y="430" width="300" height="20" rx="3" fill="#ffffff" opacity="0.1" />
+  <rect x="200" y="460" width="350" height="20" rx="3" fill="#ffffff" opacity="0.1" />
+  
+  <!-- Color Palette -->
+  <circle cx="650" cy="400" r="15" fill="#ff4d94" />
+  <circle cx="650" cy="440" r="15" fill="#6e42ff" />
+  <circle cx="650" cy="480" r="15" fill="#00f7c3" />
+  
+  <text x="400" y="70" font-family="Arial" font-size="24" fill="#ffffff" text-anchor="middle">Brand Identity</text>
+</svg>

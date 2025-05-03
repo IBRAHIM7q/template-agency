@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a2a40;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#grad1)" />
+  
+  <!-- Mobile App Design Elements -->
+  <rect x="300" y="100" width="200" height="400" rx="20" fill="#333" />
+  <rect x="310" y="120" width="180" height="360" rx="10" fill="#111" />
+  
+  <!-- App Screen Elements -->
+  <rect x="330" y="150" width="140" height="30" rx="5" fill="#6e42ff" opacity="0.7" />
+  <circle cx="350" cy="220" r="30" fill="#ff4d94" opacity="0.6" />
+  <rect x="330" y="270" width="140" height="15" rx="3" fill="#ffffff" opacity="0.1" />
+  <rect x="330" y="295" width="100" height="15" rx="3" fill="#ffffff" opacity="0.1" />
+  
+  <rect x="330" y="330" width="60" height="60" rx="5" fill="#00f7c3" opacity="0.5" />
+  <rect x="410" y="330" width="60" height="60" rx="5" fill="#ff4d94" opacity="0.5" />
+  <rect x="330" y="410" width="60" height="60" rx="5" fill="#6e42ff" opacity="0.5" />
+  <rect x="410" y="410" width="60" height="60" rx="5" fill="#00f7c3" opacity="0.5" />
+  
+  <text x="400" y="70" font-family="Arial" font-size="24" fill="#ffffff" text-anchor="middle">Mobile App Design</text>
+</svg>

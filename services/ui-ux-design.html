@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX Design - Creative Agency</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Service-spezifische Stile */
+        .service-demo {
+            margin-top: 40px;
+            background: var(--glass-bg);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .design-process {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .process-step {
+            flex-basis: calc(25% - 20px);
+            text-align: center;
+            padding: 20px;
+            background: rgba(10, 10, 20, 0.5);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .process-step.active {
+            background: var(--primary-gradient);
+        }
+
+        .process-step i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .process-step h4 {
+            margin-bottom: 10px;
+        }
+
+        .process-content {
+            display: none;
+            padding: 30px;
+            background: rgba(10, 10, 20, 0.3);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .process-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .interactive-prototype {
+            margin-top: 50px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--neo-shadow);
+        }
+
+        .prototype-header {
+            background: var(--darker-color);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prototype-screen {
+            background: #fff;
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prototype-screen img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .prototype-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .prototype-overlay h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(110, 66, 255, 0.6);
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            z-index: 10;
+        }
+
+        .hotspot-tooltip {
+            position: absolute;
+            background: var(--dark-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 200px;
+            display: none;
+            z-index: 20;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .hotspot:hover .hotspot-tooltip {
+            display: block;
+        }
+
+        .prototype-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .prototype-nav button {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .prototype-nav button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(110, 66, 255, 0.4);
+        }
+
+        .cta-container {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(110, 66, 255, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(110, 66, 255, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(110, 66, 255, 0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .process-step {
+                flex-basis: calc(50% - 15px);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .process-step {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">Name</a>
+            </div>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="../index.html#home">Home</a></li>
+                    <li><a href="../index.html#about">About Us</a></li>
+                    <li><a href="../index.html#services" class="active">Services</a></li>
+                    <li><a href="../index.html#portfolio">Portfolio</a></li>
+                    <li><a href="../index.html#team">Team</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Service Details Section -->
+    <section class="project-details">
+        <div class="container">
+            <div class="project-header">
+                <h1>UI/UX Design</h1>
+                <p>Benutzeroberflächen, die begeistern</p>
+            </div>
+            <div class="project-content">
+                <div class="project-image">
+                    <img src="../images/portfolio-1.jpg.svg" alt="UI/UX Design Service">
+                </div>
+                <div class="project-info">
+                    <h2>Service-Übersicht</h2>
+                    <p>Wir entwerfen intuitive und ansprechende Benutzeroberflächen, die Ihre Nutzer begeistern werden. Unser UI/UX-Design-Prozess ist darauf ausgerichtet, Benutzererfahrungen zu schaffen, die nicht nur ästhetisch ansprechend sind, sondern auch funktional und benutzerfreundlich.</p>
+                    <p>Von der ersten Konzeption bis zur finalen Umsetzung arbeiten wir eng mit Ihnen zusammen, um sicherzustellen, dass Ihre Vision in ein herausragendes digitales Erlebnis umgesetzt wird.</p>
+                    
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <strong>Leistungen:</strong> Wireframing, Prototyping, Interaktionsdesign, Usability-Tests
+                        </div>
+                        <div class="meta-item">
+                            <strong>Tools:</strong> Figma, Adobe XD, Sketch, InVision
+                        </div>
+                        <div class="meta-item">
+                            <strong>Durchschnittliche Projektdauer:</strong> 4-8 Wochen
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Demo Section -->
+            <div class="service-demo">
+                <h2>Unser Design-Prozess</h2>
+                <p>Erleben Sie unseren UI/UX-Design-Prozess interaktiv. Klicken Sie auf die einzelnen Schritte, um mehr zu erfahren.</p>
+                
+                <div class="design-process">
+                    <div class="process-step active" data-step="research">
+                        <i class="fas fa-search"></i>
+                        <h4>Recherche</h4>
+                        <p>Verstehen der Anforderungen</p>
+                    </div>
+                    <div class="process-step" data-step="wireframing">
+                        <i class="fas fa-pencil-ruler"></i>
+                        <h4>Wireframing</h4>
+                        <p>Struktur und Layout</p>
+                    </div>
+                    <div class="process-step" data-step="design">
+                        <i class="fas fa-paint-brush"></i>
+                        <h4>Design</h4>
+                        <p>Visuelle Gestaltung</p>
+                    </div>
+                    <div class="process-step" data-step="prototype">
+                        <i class="fas fa-laptop-code"></i>
+                        <h4>Prototyping</h4>
+                        <p>Interaktive Modelle</p>
+                    </div>
+                </div>
+
+                <div class="process-content active" id="research-content">
+                    <h3>Recherche & Analyse</h3>
+                    <p>In dieser Phase führen wir umfassende Nutzerrecherchen durch, analysieren Ihre Zielgruppe und definieren klare Ziele für das Projekt. Wir erstellen Personas und User Journeys, um ein tiefes Verständnis für die Bedürfnisse und Erwartungen Ihrer Nutzer zu entwickeln.</p>
+                    <p>Unsere Recherche umfasst:</p>
+                    <ul>
+                        <li>Wettbewerbsanalyse</li>
+                        <li>Nutzerinterviews</li>
+                        <li>Erstellung von Personas</li>
+                        <li>Definition von Nutzerzielen</li>
+                    </ul>
+                </div>
+
+                <div class="process-content" id="wireframing-content">
+                    <h3>Wireframing & Information Architecture</h3>
+                    <p>Basierend auf unseren Rechercheergebnissen erstellen wir Wireframes, die die Struktur und den Informationsfluss Ihrer Anwendung oder Website darstellen. Diese Wireframes dienen als Grundlage für das visuelle Design und helfen dabei, die Benutzerführung zu optimieren.</p>
+                    <p>In dieser Phase definieren wir:</p>
+                    <ul>
+                        <li>Seitenstruktur und Navigation</li>
+                        <li>Informationshierarchie</li>
+                        <li>Funktionale Elemente</li>
+                        <li>Benutzerflüsse</li>
+                    </ul>
+                </div>
+
+                <div class="process-content" id="design-content">
+                    <h3>Visuelles Design</h3>
+                    <p>Jetzt bringen wir Farbe und Leben in die Wireframes. Wir entwickeln ein visuelles Design, das Ihre Markenidentität widerspiegelt und gleichzeitig moderne Design-Prinzipien berücksichtigt. Unser Ziel ist es, ein ästhetisch ansprechendes und konsistentes Erscheinungsbild zu schaffen.</p>
+                    <p>Unser Design-Prozess umfasst:</p>
+                    <ul>
+                        <li>Farbschema und Typografie</li>
+                        <li>UI-Elemente und Komponenten</li>
+                        <li>Responsive Design für alle Geräte</li>
+                        <li>Design-System für Konsistenz</li>
+                    </ul>
+                </div>
+
+                <div class="process-content" id="prototype-content">
+                    <h3>Interaktives Prototyping</h3>
+                    <p>Mit interaktiven Prototypen können Sie die Benutzeroberfläche erleben, bevor sie entwickelt wird. Diese Prototypen ermöglichen es uns, das Design zu testen, Feedback zu sammeln und Anpassungen vorzunehmen, um die bestmögliche Benutzererfahrung zu gewährleisten.</p>
+                    <p>Vorteile unserer Prototypen:</p>
+                    <ul>
+                        <li>Realistische Interaktionen</li>
+                        <li>Frühzeitiges Nutzerfeedback</li>
+                        <li>Identifikation von Usability-Problemen</li>
+                        <li>Klare Vorgaben für die Entwicklung</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Interactive Prototype Demo -->
+            <div class="service-demo">
+                <h2>Interaktiver Prototyp</h2>
+                <p>Erleben Sie einen interaktiven Prototyp einer mobilen App. Klicken Sie auf die markierten Bereiche, um mehr zu erfahren.</p>
+
+                <div class="interactive-prototype">
+                    <div class="prototype-header">
+                        <div class="prototype-title">Fitness App Demo</div>
+                        <div class="prototype-controls">
+                            <i class="fas fa-circle" style="color: #ff4d4d;"></i>
+                            <i class="fas fa-circle" style="color: #ffbb33;"></i>
+                            <i class="fas fa-circle" style="color: #33cc33;"></i>
+                        </div>
+                    </div>
+                    <div class="prototype-screen" id="screen1">
+                        <img src="../images/portfolio-5.jpg.svg" alt="App Prototype Screen">
+                        
+                        <!-- Interactive Hotspots -->
+                        <div class="hotspot" style="top: 20%; left: 20%;">
+                            <div class="hotspot-tooltip" style="top: 40px; left: -80px;">
+                                <strong>User-friendly Navigation</strong><br>
+                                Intuitive menu guidance for quick access to all functions.
+                            </div>
+                        </div>
+                        
+                        <div class="hotspot" style="top: 40%; left: 70%;">
+                            <div class="hotspot-tooltip" style="top: 40px; left: -180px;">
+                                <strong>Personalized Content</strong><br>
+                                Dynamic display based on user behavior and preferences.
+                            </div>
+                        </div>
+                        
+                        <div class="hotspot" style="top: 70%; left: 50%;">
+                            <div class="hotspot-tooltip" style="top: -120px; left: -100px;">
+                                <strong>Call-to-Action</strong><br>
+                                Strategically placed buttons for optimal conversion rates.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="prototype-nav">
+                        <button id="prev-screen" disabled>Previous</button>
+                        <button id="next-screen">Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="cta-container">
+                <h2>Ready for an exceptional UI/UX design?</h2>
+                <p>Let's work together to create a user-friendly and visually impressive experience for your users.</p>
+                <a href="../index.html#contact" class="btn btn-primary">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Name</h2>
+                    <p>Creative Digital Agency</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Links</h3>
+                        <ul>
+                            <li><a href="../index.html#home">Home</a></li>
+                            <li><a href="../index.html#about">About Us</a></li>
+                            <li><a href="../index.html#services">Services</a></li>
+                            <li><a href="../index.html#portfolio">Portfolio</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="ui-ux-design.html">UI/UX Design</a></li>
+                            <li><a href="web-development.html">Web Development</a></li>
+                            <li><a href="mobile-apps.html">Mobile Apps</a></li>
+                            <li><a href="digital-marketing.html">Digital Marketing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Contact</h3>
+                        <ul class="footer-contact-info">
+                            <li><i class="fas fa-map-marker-alt"></i> ------</li>
+                            <li><i class="fas fa-phone"></i> -------</li>
+                            <li><i class="fas fa-envelope"></i> info@------</li>
+                        </ul>
+                        <div class="footer-social">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Name. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Process Steps Interaction
+            const processSteps = document.querySelectorAll('.process-step');
+            const processContents = document.querySelectorAll('.process-content');
+            
+            processSteps.forEach(step => {
+                step.addEventListener('click', function() {
+                    // Remove active class from all steps and contents
+                    processSteps.forEach(s => s.classList.remove('active'));
+                    processContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked step
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const stepId = this.getAttribute('data-step');
+                    document.getElementById(`${stepId}-content`).classList.add('active');
+                });
+            });
+
+            // Prototype Screen Navigation
+            const screen1 = document.getElementById('screen1');
+            const prevBtn = document.getElementById('prev-screen');
+            const nextBtn = document.getElementById('next-screen');
+            let currentScreen = 1;
+            const totalScreens = 3; // Anzahl der verfügbaren Screens
+
+            // Funktion zum Wechseln des Screens
+            function changeScreen(direction) {
+                if (direction === 'next' && currentScreen < totalScreens) {
+                    currentScreen++;
+                } else if (direction === 'prev' && currentScreen > 1) {
+                    currentScreen--;
+                }
+
+                // Aktualisiere Buttons basierend auf aktuellem Screen
+                prevBtn.disabled = currentScreen === 1;
+                nextBtn.disabled = currentScreen === totalScreens;
+
+                // Hier würden wir normalerweise den Screen wechseln
+                // Für dieses Demo simulieren wir einen Screenwechsel durch Änderung des Overlay-Textes
+                if (currentScreen === 1) {
+                    // Screen 1 ist bereits sichtbar
+                    if (screen1.querySelector('.prototype-overlay')) {
+                        screen1.querySelector('.prototype-overlay').remove();
+                    }
+                } else if (currentScreen === 2) {
+                    // Zeige Screen 2 (simuliert durch Overlay)
+                    if (screen1.querySelector('.prototype-overlay')) {
+                        screen1.querySelector('.prototype-overlay').remove();
+                    }
+                    const overlay = document.createElement('div');
+                    overlay.className = 'prototype-overlay';
+                    overlay.innerHTML = `
+                        <h3>Trainingsplan-Ansicht</h3>
+                        <p>Personalisierte Trainingspläne basierend auf den Zielen und dem Fitnesslevel des Benutzers.</p>
+                        <p>Klicken Sie auf "Weiter", um die nächste Ansicht zu sehen.</p>
+                    `;
+                    screen1.appendChild(overlay);
+                } else if (currentScreen === 3) {
+                    // Zeige Screen 3 (simuliert durch Overlay)
+                    if (screen1.querySelector('.prototype-overlay')) {
+                        screen1.querySelector('.prototype-overlay').remove();
+                    }
+                    const overlay = document.createElement('div');
+                    overlay.className = 'prototype-overlay';
+                    overlay.innerHTML = `
+                        <h3>Fortschritts-Tracking</h3>
+                        <p>Visualisierung der Trainingsfortschritte mit interaktiven Grafiken und Statistiken.</p>
+                        <p>Dies ist die letzte Ansicht unseres Demo-Prototyps.</p>
+                    `;
+                    screen1.appendChild(overlay);
+                }
+            }
+
+            // Event-Listener für die Buttons
+            nextBtn.addEventListener('click', function() {
+                changeScreen('next');
+            });
+
+            prevBtn.addEventListener('click', function() {
+                changeScreen('prev');
+            });
+
+            // Kontaktformular-Handling
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Vielen Dank für Ihre Nachricht! Wir werden uns in Kürze bei Ihnen melden.');
+                    contactForm.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

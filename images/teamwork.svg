@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <!-- Hintergrund mit Farbverlauf -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#16213e" />
+    </linearGradient>
+    <linearGradient id="accent-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6e42ff" />
+      <stop offset="100%" stop-color="#ff4d94" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Hintergrund -->
+  <rect width="800" height="600" fill="url(#bg-gradient)" />
+  
+  <!-- Abstrakte Verbindungslinien -->
+  <g opacity="0.2">
+    <path d="M100,300 C200,100 600,500 700,300" stroke="#ffffff" stroke-width="2" fill="none" />
+    <path d="M100,350 C300,150 500,450 700,350" stroke="#ffffff" stroke-width="2" fill="none" />
+    <path d="M100,400 C400,200 400,400 700,400" stroke="#ffffff" stroke-width="2" fill="none" />
+  </g>
+  
+  <!-- Personen-Silhouetten im Kreis angeordnet -->
+  <!-- Person 1 (links oben) -->
+  <g transform="translate(200, 200)">
+    <circle cx="0" cy="0" r="60" fill="url(#accent-gradient)" opacity="0.9" />
+    <circle cx="0" cy="-25" r="20" fill="#ffffff" />
+    <path d="M-20,0 Q0,40 20,0" stroke="#ffffff" stroke-width="3" fill="none" />
+    <path d="M-30,60 L-15,20 L15,20 L30,60" stroke="#ffffff" stroke-width="3" fill="none" />
+  </g>
+  
+  <!-- Person 2 (rechts oben) -->
+  <g transform="translate(600, 200)">
+    <circle cx="0" cy="0" r="60" fill="url(#accent-gradient)" opacity="0.9" />
+    <circle cx="0" cy="-25" r="20" fill="#ffffff" />
+    <path d="M-20,0 Q0,40 20,0" stroke="#ffffff" stroke-width="3" fill="none" />
+    <path d="M-30,60 L-15,20 L15,20 L30,60" stroke="#ffffff" stroke-width="3" fill="none" />
+  </g>
+  
+  <!-- Person 3 (unten links) -->
+  <g transform="translate(200, 450)">
+    <circle cx="0" cy="0" r="60" fill="url(#accent-gradient)" opacity="0.9" />
+    <circle cx="0" cy="-25" r="20" fill="#ffffff" />
+    <path d="M-20,0 Q0,40 20,0" stroke="#ffffff" stroke-width="3" fill="none" />
+    <path d="M-30,60 L-15,20 L15,20 L30,60" stroke="#ffffff" stroke-width="3" fill="none" />
+  </g>
+  
+  <!-- Person 4 (unten rechts) -->
+  <g transform="translate(600, 450)">
+    <circle cx="0" cy="0" r="60" fill="url(#accent-gradient)" opacity="0.9" />
+    <circle cx="0" cy="-25" r="20" fill="#ffffff" />
+    <path d="M-20,0 Q0,40 20,0" stroke="#ffffff" stroke-width="3" fill="none" />
+    <path d="M-30,60 L-15,20 L15,20 L30,60" stroke="#ffffff" stroke-width="3" fill="none" />
+  </g>
+  
+  <!-- Zentrale Verbindung -->
+  <g transform="translate(400, 325)">
+    <circle cx="0" cy="0" r="80" fill="url(#accent-gradient)" opacity="0.7" />
+    <g transform="scale(0.8)">
+      <!-- Verbindungslinien -->
+      <line x1="-150" y1="-150" x2="-50" y2="-50" stroke="#ffffff" stroke-width="4" />
+      <line x1="150" y1="-150" x2="50" y2="-50" stroke="#ffffff" stroke-width="4" />
+      <line x1="-150" y1="150" x2="-50" y2="50" stroke="#ffffff" stroke-width="4" />
+      <line x1="150" y1="150" x2="50" y2="50" stroke="#ffffff" stroke-width="4" />
+      
+      <!-- Verbindungspunkte -->
+      <circle cx="-50" cy="-50" r="15" fill="#ffffff" />
+      <circle cx="50" cy="-50" r="15" fill="#ffffff" />
+      <circle cx="-50" cy="50" r="15" fill="#ffffff" />
+      <circle cx="50" cy="50" r="15" fill="#ffffff" />
+    </g>
+    
+    <!-- Teamwork-Symbol -->
+    <g transform="scale(0.6)">
+      <path d="M-40,-20 L40,-20 L40,20 L-40,20 Z" fill="#ffffff" />
+      <path d="M-30,-10 L-10,-10 L-10,10 L-30,10 Z" fill="url(#accent-gradient)" />
+      <path d="M0,-10 L20,-10 L20,10 L0,10 Z" fill="url(#accent-gradient)" />
+    </g>
+  </g>
+  
+  <!-- Dekorative Elemente -->
+  <g opacity="0.5">
+    <circle cx="100" cy="100" r="10" fill="#ffffff" />
+    <circle cx="700" cy="100" r="15" fill="#ffffff" />
+    <circle cx="100" cy="500" r="15" fill="#ffffff" />
+    <circle cx="700" cy="500" r="10" fill="#ffffff" />
+  </g>
+</svg>

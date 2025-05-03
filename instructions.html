@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Agency Template - Instructions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3, h4 {
+            color: #6e42ff;
+        }
+        h1 {
+            border-bottom: 2px solid #6e42ff;
+            padding-bottom: 10px;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            color: #333;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+        .note {
+            background-color: #e7f3fe;
+            border-left: 4px solid #2196F3;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #0366d6;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Creative Agency Template - Instructions</h1>
+    
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#file-structure">File Structure</a></li>
+            <li><a href="#customization">
+                <span>Customization</span>
+                <ul>
+                    <li><a href="#changing-content">Changing Content</a></li>
+                    <li><a href="#changing-colors">Changing Colors</a></li>
+                    <li><a href="#changing-images">Changing Images</a></li>
+                    <li><a href="#changing-fonts">Changing Fonts</a></li>
+                </ul>
+            </a></li>
+            <li><a href="#adding-pages">Adding New Pages</a></li>
+            <li><a href="#contact-form">Setting Up the Contact Form</a></li>
+            <li><a href="#seo">SEO Optimization</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+        </ul>
+    </div>
+
+    <section id="introduction">
+        <h2>Introduction</h2>
+        <p>Thank you for purchasing our Creative Agency Template! This documentation will guide you through the process of customizing the template to fit your needs. The template is built with HTML, CSS, and JavaScript, making it easy to modify without requiring advanced programming knowledge.</p>
+        
+        <div class="note">
+            <p><strong>Note:</strong> This template requires a web server to run properly. You cannot simply open the HTML files directly in a browser for all features to work correctly.</p>
+        </div>
+    </section>
+
+    <section id="file-structure">
+        <h2>File Structure</h2>
+        <p>The template has the following file structure:</p>
+        <pre>
+├── index.html              # Main homepage
+├── css/
+│   └── style.css          # Main stylesheet
+├── js/
+│   └── main.js            # Main JavaScript file
+├── images/                # All images used in the template
+│   ├── favicon.ico        # Favicon
+│   ├── favicon.svg        # SVG Favicon
+│   ├── favicon-16x16.svg  # 16x16 Favicon
+│   ├── favicon-32x32.svg  # 32x32 Favicon
+│   ├── apple-touch-icon.svg # Apple Touch Icon
+│   └── [other images]     # Other image files
+├── projects/              # Project detail pages
+│   ├── brand-identity.html
+│   ├── corporate-branding.html
+│   └── [other project pages]
+├── services/              # Service detail pages
+│   ├── digital-marketing.html
+│   ├── web-development.html
+│   └── [other service pages]
+└── instructions.html      # This documentation file
+</pre>
+    </section>
+
+    <section id="customization">
+        <h2>Customization</h2>
+        
+        <section id="changing-content">
+            <h3>Changing Content</h3>
+            <p>To change the content of the template, you need to edit the HTML files. Here's how to modify different sections:</p>
+            
+            <h4>Header and Navigation</h4>
+            <p>To change the logo and navigation menu, edit the header section in each HTML file:</p>
+            <pre>
+&lt;!-- Header & Navigation --&gt;
+&lt;header&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="logo"&gt;
+            &lt;a href="#"&gt;Name&lt;/a&gt;  &lt;!-- Change "Name" to your company name --&gt;
+        &lt;/div&gt;
+        &lt;nav&gt;
+            &lt;ul class="main-menu"&gt;
+                &lt;li&gt;&lt;a href="#home" class="active"&gt;Home&lt;/a&gt;&lt;/li&gt;
+                &lt;!-- Add or remove menu items as needed --&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/div&gt;
+&lt;/header&gt;</pre>
+            
+            <h4>Hero Section</h4>
+            <p>To change the hero section content, locate the hero section in index.html:</p>
+            <pre>
+&lt;section id="home" class="hero"&gt;
+    &lt;div class="hero-content"&gt;
+        &lt;h1 class="animate-text"&gt;We are &lt;span class="highlight"&gt;Name&lt;/span&gt;&lt;/h1&gt;  &lt;!-- Change "Name" --&gt;
+        &lt;h2 class="animate-text delay-1"&gt;Creative Digital Agency&lt;/h2&gt;  &lt;!-- Change tagline --&gt;
+        &lt;p class="animate-text delay-2"&gt;We create unique digital experiences that excite and inspire.&lt;/p&gt;  &lt;!-- Change description --&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</pre>
+            
+            <h4>About Section</h4>
+            <p>To change the about section content, find the about section in index.html:</p>
+            <pre>
+&lt;section id="about" class="about"&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="section-header"&gt;
+            &lt;h2&gt;About Us&lt;/h2&gt;
+            &lt;p&gt;Learn more about our agency&lt;/p&gt;  &lt;!-- Change subtitle --&gt;
+        &lt;/div&gt;
+        &lt;div class="about-content"&gt;
+            &lt;div class="about-text"&gt;
+                &lt;h3&gt;We are a creative agency with a passion for design&lt;/h3&gt;  &lt;!-- Change heading --&gt;
+                &lt;p&gt;Since 2010, we've been helping businesses...&lt;/p&gt;  &lt;!-- Change paragraph --&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</pre>
+            
+            <p>Follow the same pattern to edit other sections like Services, Portfolio, Team, Testimonials, and Contact.</p>
+            
+            <h4>Footer</h4>
+            <p>To change the footer content, locate the footer section in each HTML file:</p>
+            <pre>
+&lt;footer&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="footer-content"&gt;
+            &lt;!-- Edit footer columns as needed --&gt;
+        &lt;/div&gt;
+        &lt;div class="footer-bottom"&gt;
+            &lt;p&gt;&copy; 2025 Name Creative Agency. All rights reserved.&lt;/p&gt;  &lt;!-- Update copyright info --&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/footer&gt;</pre>
+        </section>
+        
+        <section id="changing-colors">
+            <h3>Changing Colors</h3>
+            <p>The template uses CSS variables for colors, making it easy to change the color scheme. Open the <code>css/style.css</code> file and locate the root variables at the top:</p>
+            <pre>
+:root {
+    --primary-color: #6e42ff;
+    --primary-gradient: linear-gradient(135deg, #6e42ff, #00d4ff);
+    --secondary-color: #ff4d94;
+    --secondary-gradient: linear-gradient(135deg, #ff4d94, #ff9b4d);
+    --accent-color: #00f7c3;
+    --dark-color: #0a0a14;
+    --darker-color: #05050a;
+    --light-color: #f5f5f5;
+    --gray-color: #888888;
+    --text-color: #ffffff;
+    /* ... other variables ... */
+}</pre>
+            <p>Change these color values to match your brand colors. All elements using these variables will automatically update.</p>
+        </section>
+        
+        <section id="changing-images">
+            <h3>Changing Images</h3>
+            <p>To replace images, prepare your new images and place them in the <code>images/</code> folder. Then update the image paths in the HTML files:</p>
+            <pre>
+&lt;img src="images/your-new-image.jpg" alt="Description of image"&gt;</pre>
+            
+            <div class="note">
+                <p><strong>Note:</strong> For best performance, optimize your images before adding them to the template. Use SVG format for icons and logos when possible.</p>
+            </div>
+            
+            <h4>Background Images</h4>
+            <p>Some background images are set in the CSS. To change these, locate the relevant CSS rules in <code>style.css</code> and update the image paths:</p>
+            <pre>
+.hero-background {
+    background-image: url('../images/hero-bg.jpg.svg');
+    /* ... other properties ... */
+}</pre>
+        </section>
+        
+        <section id="changing-fonts">
+            <h3>Changing Fonts</h3>
+            <p>The template uses Google Fonts. To change the fonts, first add your preferred Google Fonts link to the <code>&lt;head&gt;</code> section of each HTML file:</p>
+            <pre>
+&lt;link href="https://fonts.googleapis.com/css2?family=Your+Font+Name:wght@400;700&display=swap" rel="stylesheet"&gt;</pre>
+            
+            <p>Then update the font variables in the <code>css/style.css</code> file:</p>
+            <pre>
+:root {
+    /* ... other variables ... */
+    --body-font: 'Your Font Name', sans-serif;
+    --heading-font: 'Your Heading Font', sans-serif;
+    /* ... other variables ... */
+}</pre>
+        </section>
+    </section>
+
+    <section id="adding-pages">
+        <h2>Adding New Pages</h2>
+        <p>To add a new page to the template:</p>
+        <ol>
+            <li>Copy an existing HTML file that is closest to what you want to create (e.g., copy a project page to create a new project page).</li>
+            <li>Rename the file to match your new page's purpose.</li>
+            <li>Update the content, title, and meta tags.</li>
+            <li>Add a link to the new page in the navigation menu or relevant sections.</li>
+        </ol>
+        <pre>
+&lt;!-- Example of adding a new page to navigation --&gt;
+&lt;ul class="main-menu"&gt;
+    &lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="your-new-page.html"&gt;Your New Page&lt;/a&gt;&lt;/li&gt;
+    &lt;!-- ... other menu items ... --&gt;
+&lt;/ul&gt;</pre>
+    </section>
+
+    <section id="contact-form">
+        <h2>Setting Up the Contact Form</h2>
+        <p>The contact form in the template is set up for demonstration purposes only. To make it functional, you need to connect it to a backend service or use a form submission service.</p>
+        
+        <h4>Option 1: Using a Form Submission Service</h4>
+        <p>Services like Formspree, Netlify Forms, or FormSubmit allow you to set up form submissions without backend code:</p>
+        <pre>
+&lt;form id="contactForm" action="https://formspree.io/your-email@example.com" method="POST"&gt;
+    &lt;!-- ... form fields ... --&gt;
+&lt;/form&gt;</pre>
+        
+        <h4>Option 2: Custom Backend</h4>
+        <p>If you have a backend server, modify the JavaScript in <code>js/main.js</code> to handle form submission:</p>
+        <pre>
+// Find the form submission code in main.js and update it
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(contactForm);
+        
+        // Send data to your server
+        fetch('your-server-endpoint', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Thank you for your message! We will get back to you soon.');
+            contactForm.reset();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('There was an error sending your message. Please try again.');
+        });
+    });
+}</pre>
+    </section>
+
+    <section id="seo">
+        <h2>SEO Optimization</h2>
+        <p>To optimize the template for search engines:</p>
+        <ol>
+            <li>Update the title tags in each HTML file to include relevant keywords:</li>
+            <pre>&lt;title&gt;Your Company Name - Specific Service or Page&lt;/title&gt;</pre>
+            
+            <li>Add meta description tags to each page:</li>
+            <pre>&lt;meta name="description" content="A compelling description of your page content with relevant keywords."&gt;</pre>
+            
+            <li>Use semantic HTML elements (the template already uses these).</li>
+            
+            <li>Optimize image alt attributes:</li>
+            <pre>&lt;img src="images/your-image.jpg" alt="Descriptive text with keywords"&gt;</pre>
+            
+            <li>Add structured data if relevant to your business.</li>
+        </ol>
+    </section>
+
+    <section id="troubleshooting">
+        <h2>Troubleshooting</h2>
+        
+        <h3>Common Issues</h3>
+        
+        <h4>Images Not Loading</h4>
+        <p>If images are not loading, check:</p>
+        <ul>
+            <li>Image paths are correct and match the file structure</li>
+            <li>Image files exist in the specified location</li>
+            <li>File permissions allow the web server to access the images</li>
+        </ul>
+        
+        <h4>JavaScript Features Not Working</h4>
+        <p>If JavaScript features like the slider or form validation are not working:</p>
+        <ul>
+            <li>Check the browser console for errors</li>
+            <li>Verify that the <code>main.js</code> file is properly linked in the HTML</li>
+            <li>Ensure you're viewing the site through a web server, not as local files</li>
+        </ul>
+        
+        <h4>Responsive Design Issues</h4>
+        <p>If the site doesn't look right on mobile devices:</p>
+        <ul>
+            <li>Make sure the viewport meta tag is present in the head section</li>
+            <li>Check for any CSS overrides that might be affecting responsive behavior</li>
+            <li>Test on multiple devices and browsers</li>
+        </ul>
+        
+        <div class="warning">
+            <p><strong>Important:</strong> Always back up your files before making significant changes to the template.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>If you need further assistance, please contact our support team at support@example.com</p>
+        <p>&copy; 2025 Creative Agency Template. All rights reserved.</p>
+    </footer>
+</body>
+</html>

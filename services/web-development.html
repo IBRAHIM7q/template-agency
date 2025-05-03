@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development - Creative Agency</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Service-spezifische Stile */
+        .service-demo {
+            margin-top: 40px;
+            background: var(--glass-bg);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .tech-item {
+            flex-basis: calc(20% - 20px);
+            text-align: center;
+            padding: 20px;
+            background: rgba(10, 10, 20, 0.5);
+            border-radius: 10px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: rgba(110, 66, 255, 0.1);
+        }
+
+        .tech-item i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .tech-item h4 {
+            margin-bottom: 10px;
+        }
+
+        .code-editor {
+            margin-top: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--neo-shadow);
+        }
+
+        .editor-header {
+            background: var(--darker-color);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .editor-tab {
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .editor-tab.active {
+            background: var(--primary-gradient);
+        }
+
+        .editor-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .editor-controls i {
+            color: var(--gray-color);
+            cursor: pointer;
+        }
+
+        .editor-content {
+            display: flex;
+            height: 400px;
+        }
+
+        .editor-sidebar {
+            width: 20%;
+            background: rgba(5, 5, 10, 0.8);
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .file-tree {
+            font-family: monospace;
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+
+        .file-tree ul {
+            padding-left: 15px;
+        }
+
+        .file-tree li {
+            margin: 5px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-tree li:hover {
+            color: var(--primary-color);
+        }
+
+        .file-tree .folder {
+            color: #ffbb33;
+        }
+
+        .file-tree .file {
+            color: #f5f5f5;
+        }
+
+        .editor-main {
+            width: 80%;
+            background: #1e1e2e;
+            padding: 15px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .code-area {
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #f8f8f2;
+            white-space: pre;
+            counter-reset: line;
+        }
+
+        .code-area .line {
+            display: flex;
+        }
+
+        .code-area .line:before {
+            counter-increment: line;
+            content: counter(line);
+            display: inline-block;
+            width: 30px;
+            text-align: right;
+            padding-right: 10px;
+            color: #6272a4;
+            user-select: none;
+        }
+
+        .code-area .keyword {
+            color: #ff79c6;
+        }
+
+        .code-area .string {
+            color: #f1fa8c;
+        }
+
+        .code-area .function {
+            color: #50fa7b;
+        }
+
+        .code-area .comment {
+            color: #6272a4;
+        }
+
+        .code-area .property {
+            color: #8be9fd;
+        }
+
+        .code-area .selector {
+            color: #bd93f9;
+        }
+
+        .preview-area {
+            display: none;
+            background: white;
+            color: black;
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .preview-area.active {
+            display: block;
+        }
+
+        .live-preview {
+            margin-top: 20px;
+        }
+
+        .preview-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .preview-toggle {
+            display: flex;
+            gap: 10px;
+        }
+
+        .preview-toggle button {
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .preview-toggle button.active {
+            background: var(--primary-gradient);
+        }
+
+        .preview-frame {
+            width: 100%;
+            height: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            background: white;
+            transition: var(--transition);
+        }
+
+        .preview-frame.mobile {
+            width: 375px;
+            height: 667px;
+            margin: 0 auto;
+        }
+
+        .preview-frame.tablet {
+            width: 768px;
+            height: 1024px;
+            margin: 0 auto;
+        }
+
+        .project-steps {
+            margin-top: 50px;
+        }
+
+        .step-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .step-timeline:before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        .timeline-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 50px;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(10, 10, 20, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .timeline-step.active .step-number {
+            background: var(--primary-gradient);
+        }
+
+        .step-content {
+            display: none;
+            background: rgba(10, 10, 20, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .step-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .cta-container {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 992px) {
+            .tech-item {
+                flex-basis: calc(33.33% - 20px);
+            }
+            .editor-content {
+                flex-direction: column;
+                height: auto;
+            }
+            .editor-sidebar, .editor-main {
+                width: 100%;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tech-item {
+                flex-basis: calc(50% - 20px);
+            }
+            .preview-frame.tablet {
+                width: 100%;
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .tech-item {
+                flex-basis: 100%;
+            }
+            .preview-frame.mobile {
+                width: 100%;
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">Name</a>
+            </div>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="../index.html#home">Home</a></li>
+                    <li><a href="../index.html#about">About Us</a></li>
+                    <li><a href="../index.html#services" class="active">Services</a></li>
+                    <li><a href="../index.html#portfolio">Portfolio</a></li>
+                    <li><a href="../index.html#team">Team</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Service Details Section -->
+    <section class="project-details">
+        <div class="container">
+            <div class="project-header">
+                <h1>Web Development</h1>
+                <p>Custom web development for your business</p>
+            </div>
+            <div class="project-content">
+                <div class="project-image">
+                    <img src="../images/portfolio-4.jpg.svg" alt="Web Development Service">
+                </div>
+                <div class="project-info">
+                    <h2>Service Overview</h2>
+                    <p>We develop custom websites and web applications with cutting-edge technologies. Our development team works closely with our designers to ensure that your website not only looks good but also functions flawlessly from a technical standpoint.</p>
+                    <p>From simple corporate websites to complex web applications - we have the expertise to meet your digital requirements.</p>
+                    
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <strong>Services:</strong> Frontend Development, Backend Development, CMS Integration, E-Commerce Solutions
+                        </div>
+                        <div class="meta-item">
+                            <strong>Technologies:</strong> HTML5, CSS3, JavaScript, React, Vue.js, Node.js, PHP, WordPress
+                        </div>
+                        <div class="meta-item">
+                            <strong>Average Project Duration:</strong> 6-12 weeks
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technology Stack Section -->
+            <div class="service-demo">
+                <h2>Our Technologies</h2>
+                <p>We rely on modern technologies to develop powerful and future-proof web solutions. Click on the technologies to learn more.</p>
+                
+                <div class="tech-stack">
+                    <div class="tech-item" data-tech="html">
+                        <i class="fab fa-html5" style="color: #e34f26;"></i>
+                        <h4>HTML5</h4>
+                        <p>Structure</p>
+                    </div>
+                    <div class="tech-item" data-tech="css">
+                        <i class="fab fa-css3-alt" style="color: #1572b6;"></i>
+                        <h4>CSS3</h4>
+                        <p>Styling</p>
+                    </div>
+                    <div class="tech-item" data-tech="js">
+                        <i class="fab fa-js" style="color: #f7df1e;"></i>
+                        <h4>JavaScript</h4>
+                        <p>Interactivity</p>
+                    </div>
+                    <div class="tech-item" data-tech="react">
+                        <i class="fab fa-react" style="color: #61dafb;"></i>
+                        <h4>React</h4>
+                        <p>UI Components</p>
+                    </div>
+                    <div class="tech-item" data-tech="node">
+                        <i class="fab fa-node-js" style="color: #339933;"></i>
+                        <h4>Node.js</h4>
+                        <p>Backend</p>
+                    </div>
+                </div>
+
+                <!-- Interactive Code Editor Demo -->
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <div class="editor-tab active" data-tab="html">index.html</div>
+                            <div class="editor-tab" data-tab="css">style.css</div>
+                            <div class="editor-tab" data-tab="js">script.js</div>
+                        </div>
+                        <div class="editor-controls">
+                            <i class="fas fa-circle" style="color: #ff4d4d;"></i>
+                            <i class="fas fa-circle" style="color: #ffbb33;"></i>
+                            <i class="fas fa-circle" style="color: #33cc33;"></i>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <div class="editor-sidebar">
+                            <div class="file-tree">
+                                <ul>
+                                    <li><span class="folder"><i class="fas fa-folder"></i> project</span>
+                                        <ul>
+                                            <li><span class="file"><i class="fas fa-file-code"></i> index.html</span></li>
+                                            <li><span class="folder"><i class="fas fa-folder"></i> css</span>
+                                                <ul>
+                                                    <li><span class="file"><i class="fas fa-file-code"></i> style.css</span></li>
+                                                </ul>
+                                            </li>
+                                            <li><span class="folder"><i class="fas fa-folder"></i> js</span>
+                                                <ul>
+                                                    <li><span class="file"><i class="fas fa-file-code"></i> script.js</span></li>
+                                                </ul>
+                                            </li>
+                                            <li><span class="folder"><i class="fas fa-folder"></i> images</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="editor-main">
+                            <div class="code-area active" id="html-code">
+                                <div class="line"><span><span class="keyword">&lt;!DOCTYPE html&gt;</span></span></div>
+                                <div class="line"><span><span class="keyword">&lt;html</span> <span class="property">lang</span>=<span class="string">"de"</span><span class="keyword">&gt;</span></span></div>
+                                <div class="line"><span><span class="keyword">&lt;head&gt;</span></span></div>
+                                <div class="line"><span>    <span class="keyword">&lt;meta</span> <span class="property">charset</span>=<span class="string">"UTF-8"</span><span class="keyword">&gt;</span></span></div>
+                                <div class="line"><span>    <span class="keyword">&lt;meta</span> <span class="property">name</span>=<span class="string">"viewport"</span> <span class="property">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="keyword">&gt;</span></span></div>
+                                <div class="line"><span>    <span class="keyword">&lt;title&gt;</span>Meine Website<span class="keyword">&lt;/title&gt;</span></span></div>
+                                <div class="line"><span>    <span class="keyword">&lt;link</span> <span class="property">rel</span>=<span class="string">"stylesheet"</span> <span class="property">href</span>=<span class="string">"css/style.css"</span><span class="keyword">&gt;</span></span></div>
+                                <div class="line"><span><span class="keyword">&lt;/head&gt;</span></span></div>
+                                <div class="line"><span><span class="keyword">&lt;body&gt;</span></span></div>
+                                <div class="line"><span>    <span class="keyword">&lt;header&gt;</span></span></div>
+                                <div class="line"><span>        <span class="keyword">&lt;nav&gt;</span></span></div>
+                                <div class="line"><span>            <span class="keyword">&lt;div</span> <span class="property">class</span>=<span class="string">"logo"</span><span class="keyword">&gt;</span>Meine Website<span class="keyword">&lt;/div&gt;</span></span></div>
+                                <div class="line"><span>            <span class="keyword">&lt;ul&gt;</span></span></div>
+                                <div class="line"><span>                <span class="keyword">&lt;li&gt;&lt;a</span> <span class="property">href</span>=<span class="string">"#"</span><span class="keyword">&gt;</span>Home<span class="keyword">&lt;/a&gt;&lt;/li&gt;</span></span></div>
+                                <div class="line"><span>                <span class="keyword">&lt;li&gt;&lt;a</span> <span class="property">href</span>=<span class="string">"#about"</span><span class="keyword">&gt;</span>Über uns<span class="keyword">&lt;/a&gt;&lt;/li&gt;</span></span></div>
+                                <div class="line"><span>                <span class="keyword">&lt;li&gt;&lt;a</span> <span class="property">href</span>=<span class="string">"#services"</span><span class="keyword">&gt;</span>Leistungen<span class="keyword">&lt;/a&gt;&lt;/li&gt;</span></span></div>
+                                <div class="line"><span>                <span class="keyword">&lt;li&gt;&lt;a</span> <span class="property">href</span>=<span class="string">"#contact"</span><span class="keyword">&gt;</span>Kontakt<span class="keyword">&lt;/a&gt;&lt;/li&gt;</span></span></div>
+                                <div class="line"><span>            <span class="keyword">&lt;/ul&gt;</span></span></div>
+                                <div class="line"><span>        <span class="keyword">&lt;/nav&gt;</span></span></div>
+                                <div class="line"><span>    <span class="keyword">&lt;/header&gt;</span></span></div>
+                                <div class="line"><span>    </span></div>
+                                <div class="line"><span>    <span class="keyword">&lt;main&gt;</span></span></div>
+                                <div class="line"><span>        <span class="keyword">&lt;section</span> <span class="property">id</span>=<span class="string">"hero"</span><span class="keyword">&gt;</span></span></div>
+                                <div class="line"><span>            <span class="keyword">&lt;h1&gt;</span>Willkommen auf meiner Website<span class="keyword">&lt;/h1&gt;</span></span></div>
+                                <div class="line"><span>            <span class="keyword">&lt;p&gt;</span>Eine moderne Webseite mit HTML, CSS und JavaScript<span class="keyword">&lt;/p&gt;</span></span></div>
+                                <div class="line"><span>            <span class="keyword">&lt;button</span> <span class="property">id</span>=<span class="string">"cta-button"</span><span class="keyword">&gt;</span>Mehr erfahren<span class="keyword">&lt;/button&gt;</span></span></div>
+                                <div class="line"><span>        <span class="keyword">&lt;/section&gt;</span></span></div>
+                                <div class="line"><span>    <span class="keyword">&lt;/main&gt;</span></span></div>
+                                <div class="line"><span>    </span></div>
+                                <div class="line"><span>    <span class="keyword">&lt;script</span> <span class="property">src</span>=<span class="string">"js/script.js"</span><span class="keyword">&gt;&lt;/script&gt;</span></span></div>
+                                <div class="line"><span><span class="keyword">&lt;/body&gt;</span></span></div>
+                                <div class="line"><span><span class="keyword">&lt;/html&gt;</span></span></div>
+                            </div>
+                            <div class="code-area" id="css-code">
+                                <div class="line"><span><span class="comment">/* Grundlegende Stile */</span></span></div>
+                                <div class="line"><span><span class="selector">*</span> {</span></div>
+                                <div class="line"><span>    <span class="property">margin</span>: <span class="keyword">0</span>;</span></div>
+                                <div class="line"><span>    <span class="property">padding</span>: <span class="keyword">0</span>;</span></div>
+                                <div class="line"><span>    <span class="property">box-sizing</span>: <span class="keyword">border-box</span>;</span></div>
+                                <div class="line"><span>}</span></div>
+                                <div class="line"><span></span></div>
+                                <div class="line"><span><span class="selector">body</span> {</span></div>
+                                <div class="line"><span>    <span class="property">font-family</span>: <span class="string">'Arial'</span>, <span class="keyword">sans-serif</span>;</span></div>
+                                <div class="line"><span>    <span class="property">line-height</span>: <span class="keyword">1.6</span>;</span></div>
+                                <div class="line"><span>    <span class="property">color</span>: <span class="keyword">#333</span>;</span></div>
+                                <div class="line"><span>}</span></div>
+                                <div class="line"><span></span></div>
+                                <div class="line"><span><span class="comment">/* Header und Navigation */</span></span></div>
+                                <div class="line"><span><span class="selector">header</span> {</span></div>
+                                <div class="line"><span>    <span class="property">background</span>: <span class="keyword">#2c3e50</span>;</span></div>
+                                <div class="line"><span>    <span class="property">color</span>: <span class="keyword">white</span>;</span></div>
+                                <div class="line"><span>    <span class="property">padding</span>: <span class="keyword">1rem</span>;</span></div>
+                                <div class="line"><span>}</span></div>
+                                <div class="line"><span></span></div>
+                                <div class="line"><span><span class="selector">nav</span> {</span></div>
+                                <div class="line"><span>    <span class="property">display</span>: <span class="keyword">flex</span>;</span></div>
+                                <div class="line"><span>    <span class="property">justify-content</span>: <span class="keyword">space-between</span>;</span></div>
+                                <div class="line"><span>    <span class="property">align-items</span>: <span class="keyword">center</span>;</span></div>
+                                <div class="line"><span>    <span class="property">max-width</span>: <span class="keyword">1200px</span>;</span></div>
+                                <div class="line"><span>    <span class="property">margin</span>: <span class="keyword">0 auto</span>;</span></div>
+                                <div class="line"><span>}</span></div>
+                                <div class="line"><span></span></div>
+                                <div class="line"><span><span class="selector">nav ul</span> {</span></div>
+                                <div class="line"><span>    <span class="property">display</span>: <span class="keyword">flex</span>;</span></div>
+                                <div class="line"><span>    <span class="property">list-style</span>: <span class="keyword">none</span>;</span></div>
+                                <div class="line"><span>}</span></div>
+                                <div class="line"><span></span></div>
+                                <div class="line"><span><span class="selector">nav ul li</span> {</span></div>
+                                <div class="line"><span>    <span class="property">margin-left</span>: <span class="keyword">1.5rem</span>;</span></div>
+                                <div class="line"><span>}</span></div>
+                                <div class="line"><span></span></div>
+                                <div class="line"><span><span class="selector">nav a</span> {</span></div>
+                                <div class="line"><span>    <span class="property">color</span>: <span class="keyword">white</span>;</span></div>
+                                <div class="line"><span>    <span class="property">text-decoration</span>: <span class="keyword">none</span>;</span></div>
+                                <div class="line"><span>    <span class="property">transition</span>: <span class="keyword">0.3s</span>;</span></div>
+                                <div class="line"><span>}</span></div>
+                                <div class="line"><span></span></div>
+                                <div class="line"><span><span class="selector">nav a:hover</span> {</span></div>
+                                <div class="line"><span>    <span class="property">color</span>: <span class="keyword">#3498db</span>;</span></div>
+                                <div class="line"><span>}</span></div>
+                            </div>
+                            <div class="code-area" id="js-code">
+                                <div class="line"><span><span class="comment">// Warte, bis das DOM vollständig geladen ist</span></span></div>
+                                <div class="line"><span><span class="keyword">document</span>.<span class="function">addEventListener</span>(<span class="string">'DOMContentLoaded'</span>, <span class="function">function</span>() {</span></div>
+                                <div class="line"><span>    <span class="comment">// Button-Element auswählen</span></span></div>
+                                <div class="line"><span>    <span class="keyword">const</span> ctaButton = <span class="keyword">document</span>.<span class="function">getElementById</span>(<span class="string">'cta-button'</span>);</span></div>
+                                <div class="line"><span>    </span></div>
+                                <div class="line"><span>    <span class="comment">// Event-Listener für Klick-Ereignis</span></span></div>
+                                <div class="line"><span>    ctaButton.<span class="function">addEventListener</span>(<span class="string">'click'</span>, <span class="function">function</span>() {</span></div>
+                                <div class="line"><span>        <span class="function">alert</span>(<span class="string">'Danke für Ihr Interesse! Wir werden Sie kontaktieren.'</span>);</span></div>
+                                <div class="line"><span>    });</span></div>
+                                <div class="line"><span>});</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Preview Section -->
+                <div class="live-preview">
+                    <h3>Live Preview</h3>
+                    <p>See how your website will look on different devices.</p>
+                    
+                    <div class="preview-controls">
+                        <div class="preview-toggle">
+                            <button class="active" data-view="desktop">Desktop</button>
+                            <button data-view="tablet">Tablet</button>
+                            <button data-view="mobile">Mobile</button>
+                        </div>
+                        <button id="run-preview">Update Preview</button>
+                    </div>
+                    
+                    <div class="preview-frame">
+                        <div style="padding: 20px; text-align: center; color: #333;">
+                            <h1 style="color: #2c3e50;">Welcome to my Website</h1>
+                            <p style="margin: 20px 0;">A modern website with HTML, CSS and JavaScript</p>
+                            <button style="background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Development Process -->
+            <div class="service-demo project-steps">
+                <h2>Our Web Development Process</h2>
+                <p>Learn how we develop your website from idea to completion.</p>
+                
+                <div class="step-timeline">
+                    <div class="timeline-step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <p>Planning</p>
+                    </div>
+                    <div class="timeline-step" data-step="2">
+                        <div class="step-number">2</div>
+                        <p>Design</p>
+                    </div>
+                    <div class="timeline-step" data-step="3">
+                        <div class="step-number">3</div>
+                        <p>Development</p>
+                    </div>
+                    <div class="timeline-step" data-step="4">
+                        <div class="step-number">4</div>
+                        <p>Testing</p>
+                    </div>
+                    <div class="timeline-step" data-step="5">
+                        <div class="step-number">5</div>
+                        <p>Launch</p>
+                    </div>
+                </div>
+                
+                <div class="step-content active" id="step-1">
+                    <h3>1. Planning and Requirements Analysis</h3>
+                    <p>In this phase, we work with you to define the goals and requirements of your web project. We analyze your target audience, create personas, and define the functionalities your website needs.</p>
+                    <p>Our planning phase includes:</p>
+                    <ul>
+                        <li>Requirements analysis and goal setting</li>
+                        <li>Target audience analysis and persona creation</li>
+                        <li>Sitemap and information architecture</li>
+                        <li>Technical specifications and technology selection</li>
+                    </ul>
+                </div>
+                
+                <div class="step-content" id="step-2">
+                    <h3>2. Design and Wireframing</h3>
+                    <p>Based on the requirements, we create wireframes and design concepts for your website. We value user-friendly design that reflects your brand identity while providing an optimal user experience.</p>
+                    <p>Our design process includes:</p>
+                    <ul>
+                        <li>Wireframing and prototyping</li>
+                        <li>UI/UX design</li>
+                        <li>Responsive design for all devices</li>
+                        <li>Design feedback and iterations</li>
+                    </ul>
+                </div>
+                
+                <div class="step-content" id="step-3">
+                    <h3>3. Development and Programming</h3>
+                    <p>In this phase, we transform the design into functioning code. Our developers work with modern technologies and best practices to create a powerful, secure, and maintainable website.</p>
+                    <p>Our development phase includes:</p>
+                    <ul>
+                        <li>Frontend development (HTML, CSS, JavaScript)</li>
+                        <li>Backend development and database integration</li>
+                        <li>CMS integration (if needed)</li>
+                        <li>Implementation of functionalities and features</li>
+                    </ul>
+                </div>
+                
+                <div class="step-content" id="step-4">
+                    <h3>4. Testing and Quality Assurance</h3>
+                    <p>Before we publish your website, we conduct extensive testing to ensure everything works flawlessly. We test on various devices and browsers and optimize performance.</p>
+                    <p>Our testing process includes:</p>
+                    <ul>
+                        <li>Functionality tests</li>
+                        <li>Cross-browser and cross-device tests</li>
+                        <li>Performance optimization</li>
+                        <li>Security checks</li>
+                    </ul>
+                </div>
+                
+                <div class="step-content" id="step-5">
+                    <h3>5. Launch and Support</h3>
+                    <p>After successful testing, we publish your website and ensure everything runs smoothly. We also offer post-launch support and maintenance to ensure your website remains current and secure.</p>
+                    <p>Our launch phase includes:</p>
+                    <ul>
+                        <li>Deployment on the production server</li>
+                        <li>Domain configuration and SSL setup</li>
+                        <li>Content management training</li>
+                        <li>Ongoing maintenance and support</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="cta-container">
+                <h2>Ready for your new website?</h2>
+                <p>Let's develop a customized web solution for your business together.</p>
+                <a href="../index.html#contact" class="btn btn-primary">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Name</h2>
+                    <p>Creative Digital Agency</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Links</h3>
+                        <ul>
+                            <li><a href="../index.html#home">Home</a></li>
+                            <li><a href="../index.html#about">About Us</a></li>
+                            <li><a href="../index.html#services">Services</a></li>
+                            <li><a href="../index.html#portfolio">Portfolio</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="ui-ux-design.html">UI/UX Design</a></li>
+                            <li><a href="web-development.html">Web Development</a></li>
+                            <li><a href="mobile-apps.html">Mobile Apps</a></li>
+                            <li><a href="digital-marketing.html">Digital Marketing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Contact</h3>
+                        <ul class="footer-contact-info">
+                            <li><i class="fas fa-map-marker-alt"></i> ------</li>
+                            <li><i class="fas fa-phone"></i> -------</li>
+                            <li><i class="fas fa-envelope"></i> info@------</li>
+                        </ul>
+                        <div class="footer-social">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Name. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Code Editor Tabs
+            const editorTabs = document.querySelectorAll('.editor-tab');
+            const codeAreas = document.querySelectorAll('.code-area');
+            
+            editorTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and code areas
+                    editorTabs.forEach(t => t.classList.remove('active'));
+                    codeAreas.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding code area
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(`${tabId}-code`).classList.add('active');
+                });
+            });
+
+            // Preview Toggle
+            const previewToggleBtns = document.querySelectorAll('.preview-toggle button');
+            const previewFrame = document.querySelector('.preview-frame');
+            
+            previewToggleBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    previewToggleBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update preview frame class
+                    previewFrame.className = 'preview-frame';
+                    const viewType = this.getAttribute('data-view');
+                    if (viewType !== 'desktop') {
+                        previewFrame.classList.add(viewType);
+                    }
+                });
+            });
+
+            // Run Preview Button
+            const runPreviewBtn = document.getElementById('run-preview');
+            
+            if (runPreviewBtn) {
+                runPreviewBtn.addEventListener('click', function() {
+                    // Simulate preview update
+                    previewFrame.style.opacity = '0.5';
+                    setTimeout(() => {
+                        previewFrame.style.opacity = '1';
+                    }, 500);
+                });
+            }
+
+            // Project Steps Timeline
+            const timelineSteps = document.querySelectorAll('.timeline-step');
+            const stepContents = document.querySelectorAll('.step-content');
+            
+            timelineSteps.forEach(step => {
+                step.addEventListener('click', function() {
+                    // Remove active class from all steps and contents
+                    timelineSteps.forEach(s => s.classList.remove('active'));
+                    stepContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked step
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const stepNum = this.getAttribute('data-step');
+                    document.getElementById(`step-${stepNum}`).classList.add('active');
+                });
+            });
+
+            // Technology Stack Items
+            const techItems = document.querySelectorAll('.tech-item');
+            
+            techItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const tech = this.getAttribute('data-tech');
+                    let message = '';
+                    
+                    switch(tech) {
+                        case 'html':
+                            message = 'HTML5 ist die neueste Version der Hypertext Markup Language und bildet das Grundgerüst jeder Website.';
+                            break;
+                        case 'css':
+                            message = 'CSS3 ermöglicht ansprechende Designs und Animationen für moderne Websites.';
+                            break;
+                        case 'js':
+                            message = 'JavaScript macht Websites interaktiv und ermöglicht dynamische Benutzererfahrungen.';
+                            break;
+                        case 'react':
+                            message = 'React ist eine JavaScript-Bibliothek zur Erstellung von Benutzeroberflächen, entwickelt von Facebook.';
+                            break;
+                        case 'node':
+                            message = 'Node.js ermöglicht serverseitiges JavaScript und ist ideal für skalierbare Webanwendungen.';
+                            break;
+                    }
+                    
+                    alert(message);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
